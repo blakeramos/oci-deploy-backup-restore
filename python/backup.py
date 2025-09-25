@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-backup.py - Cohesity-style backup for OCI VMs using OCI Python SDK
+backup.py - Backup for OCI VMs using OCI Python SDK
 """
 import argparse
 import logging

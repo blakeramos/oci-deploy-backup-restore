@@ -1,7 +1,7 @@
 # OCI VM Backup & Restore (Python SDK)
 
 This directory contains **Python scripts** that implement Cohesity-style **backup** and **restore workflows** for Oracle Cloud Infrastructure (OCI) Compute instances.  
-They leverage the **OCI Python SDK** to automate VM protection in a way similar to Cohesity DataProtect on AWS.
+They leverage the **OCI Python SDK** to automate VM protection.
 
 ---
 
@@ -53,7 +53,7 @@ python backup.py   --compartment ocid1.compartment.oc1..aaaaaaaaxxx   --instance
 
 ### Restore a VM
 ```bash
-python restore.py   --compartment ocid1.compartment.oc1..aaaaaaaaxxx   --availability-domain Uocm:PHX-AD-1   --subnet ocid1.subnet.oc1..cccccccc   --shape VM.Standard.E4.Flex   --image-id ocid1.image.oc1..dddddddd   --boot-backup ocid1.bootvolumebackup.oc1..eeeeeeee   --block-backups ocid1.volumebackup.oc1..ffffffff ocid1.volumebackup.oc1..gggggggg
+python restore.py   --compartment ocid1.compartment.oc1..aaaaaaaaxxx   --availability-domain Uocm:PHX-AD-1   --subnet ocid1.subnet.oc1..cccccccc   --shape VM.Standard.E5.Flex   --image-id ocid1.image.oc1..dddddddd   --boot-backup ocid1.bootvolumebackup.oc1..eeeeeeee   --block-backups ocid1.volumebackup.oc1..ffffffff ocid1.volumebackup.oc1..gggggggg
 ```
 
 **Output:**
@@ -74,7 +74,7 @@ python restore.py   --compartment ocid1.compartment.oc1..aaaaaaaaxxx   --availab
 - `--compartment` : Compartment OCID for restore resources.  
 - `--availability-domain` : AD where resources will be created.  
 - `--subnet` : Subnet OCID for the new instance.  
-- `--shape` : Compute shape (e.g., `VM.Standard.E4.Flex`).  
+- `--shape` : Compute shape (e.g., `VM.Standard.E5.Flex`).  
 - `--image-id` : Image OCID (for metadata; doesn’t affect boot volume restore).  
 - `--boot-backup` : Boot volume backup OCID.  
 - `--block-backups` : (Optional) One or more block volume backup OCIDs.  
