@@ -65,28 +65,9 @@ resource "oci_core_security_list" "sec" {
   }
 }
 
-# --- Object Storage ---
+# --- Object Storage Namespace ---
+# Required for all object storage operations
 data "oci_objectstorage_namespace" "ns" {}
-
-resource "oci_objectstorage_bucket" "backup_bucket" {
-  compartment_id      = var.compartment_ocid
-  namespace           = data.oci_objectstorage_namespace.ns.namespace
-  name                = "${var.display_name_prefix}-bucket"
-  public_access_type  = "NoPublicAccess"
-  freeform_tags       = var.freeform_tags
-}
-
-# --- Backup repository Block Volume with Dynamic Performance Scaling ---
-resource "oci_core_volume" "backup_repo" {
-  compartment_id       = var.compartment_ocid
-  availability_domain  = var.availability_domain != "" ? var.availability_domain : null
-  display_name         = "${var.display_name_prefix}-repo"
-  size_in_gbs          = var.backup_repo_volume_size_gbs
-
-  block_volume_performance = "Auto_tuned"
-
-  freeform_tags = var.freeform_tags
-}
 
 # --- Instance Configuration ---
 resource "oci_core_instance_configuration" "instance_config" {

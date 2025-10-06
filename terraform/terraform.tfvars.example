@@ -1,0 +1,116 @@
+# OCI DataProtect MVP - Example Terraform Variables
+# Copy this file to terraform.tfvars and fill in your values
+
+# === Required Variables ===
+
+# Your OCI tenancy OCID
+tenancy_ocid = "ocid1.tenancy.oc1..aaaaaaaxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# Compartment where resources will be created
+compartment_ocid = "ocid1.compartment.oc1..aaaaaaaxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# OCI region (e.g., us-ashburn-1, us-phoenix-1, eu-frankfurt-1)
+region = "us-ashburn-1"
+
+# Image OCID for the backup instances (Oracle Linux 8 recommended)
+# Find images: oci compute image list --compartment-id <compartment-id> --operating-system "Oracle Linux"
+image_id = "ocid1.image.oc1..aaaaaaaxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# SSH public key for instance access
+ssh_public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQ... your-email@example.com"
+
+# === Optional: Naming and Tags ===
+
+# Prefix for all resource names (helps identify resources in console)
+display_name_prefix = "oci-dataprotect-mvp"
+
+# Freeform tags for cost tracking and organization
+freeform_tags = {
+  Owner       = "CloudEngineering"
+  Environment = "MVP"
+  Project     = "DataProtect"
+  CostCenter  = "Engineering"
+}
+
+# === Optional: Networking ===
+
+# VCN CIDR block
+vcn_cidr = "10.0.0.0/16"
+
+# Subnet CIDR block
+subnet_cidr = "10.0.1.0/24"
+
+# Availability domain (leave empty to use first AD)
+availability_domain = ""
+
+# === Optional: Compute Configuration ===
+
+# Instance shape for backup workers (Flex shapes recommended)
+instance_shape = "VM.Standard.E5.Flex"
+
+# Number of OCPUs per instance
+instance_ocpus = 2
+
+# Memory in GBs per instance
+instance_memory_in_gbs = 16
+
+# Instance pool sizing
+instance_pool_min          = 1
+instance_pool_max          = 4
+instance_pool_initial_size = 1
+
+# === Optional: Storage Configuration ===
+
+# Backup repository volume size in GB
+backup_repo_volume_size_gbs = 500
+
+# VPUs per GB for block volumes (10=Balanced, 20=High Performance)
+backup_repo_vpus_per_gb = 10
+
+# Enable auto-tuned storage performance (recommended for demo)
+enable_auto_tuned_storage = true
+
+# Enable automatic deletion of old backups
+enable_auto_delete = false
+
+# Backup retention period in days
+backup_retention_days = 90
+
+# === Optional: Disaster Recovery ===
+
+# Enable cross-region replication for DR
+enable_cross_region_replication = false
+
+# DR region (only used if cross_region_replication is enabled)
+dr_region = "us-phoenix-1"
+
+# === Optional: Monitoring & Alerting ===
+
+# Email address for backup alerts (leave empty to disable)
+alert_email = "backup-alerts@example.com"
+
+# Webhook URL for alerts (e.g., Slack webhook, leave empty to disable)
+alert_webhook_url = ""
+
+# Backup duration threshold in minutes (alert if backup takes longer)
+backup_duration_threshold_minutes = 120
+
+# Key rotation alert threshold in days
+key_rotation_days = 90
+
+# === Optional: Bootstrap Script ===
+
+# Custom bootstrap script for instances (leave empty for default)
+bootstrap_script = <<-EOF
+#!/bin/bash
+# Install backup tools
+yum install -y python3 python3-pip git
+
+# Clone backup scripts (if in a repo)
+# git clone https://github.com/your-org/backup-scripts.git /opt/backup
+
+# Install Python dependencies
+pip3 install oci-cli
+
+echo "Backup instance initialized"
+EOF

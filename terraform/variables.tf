@@ -23,3 +23,67 @@ variable "backup_repo_volume_size_gbs" { type = number, default = 200 }
 variable "bootstrap_script" { type = string, default = "" }
 
 variable "freeform_tags" { type = map(string), default = { Owner = "devops" } }
+
+# === Enhanced Storage Variables ===
+
+variable "enable_auto_delete" {
+  type        = bool
+  default     = false
+  description = "Enable automatic deletion of backups after retention period"
+}
+
+variable "backup_retention_days" {
+  type        = number
+  default     = 90
+  description = "Number of days to retain backups before deletion"
+}
+
+variable "enable_cross_region_replication" {
+  type        = bool
+  default     = false
+  description = "Enable cross-region replication for disaster recovery"
+}
+
+variable "dr_region" {
+  type        = string
+  default     = "us-phoenix-1"
+  description = "Disaster recovery region for backup replication"
+}
+
+variable "backup_repo_vpus_per_gb" {
+  type        = number
+  default     = 10
+  description = "VPUs per GB for backup repository (10=Balanced, 20=High Performance)"
+}
+
+variable "enable_auto_tuned_storage" {
+  type        = bool
+  default     = true
+  description = "Enable auto-tuned performance for block volumes (OCI's automatic IOPS scaling)"
+}
+
+# === Monitoring & Alerting Variables ===
+
+variable "alert_email" {
+  type        = string
+  default     = ""
+  description = "Email address for backup alerts (leave empty to disable)"
+}
+
+variable "alert_webhook_url" {
+  type        = string
+  default     = ""
+  description = "Webhook URL for alerts (e.g., Slack webhook, leave empty to disable)"
+}
+
+variable "backup_duration_threshold_minutes" {
+  type        = number
+  default     = 120
+  description = "Threshold in minutes for backup duration alerts"
+}
+
+variable "key_rotation_days" {
+  type        = number
+  default     = 90
+  description = "Number of days before encryption key rotation alert"
+}
