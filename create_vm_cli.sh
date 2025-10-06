@@ -71,27 +71,14 @@ check_shape_availability() {
     fi
 }
 
-# Function to get latest Oracle Linux 9 image
+# Function to get latest Oracle Linux 9 image (non-GPU)
 get_oracle_linux_image() {
-    echo -e "${YELLOW}Finding latest Oracle Linux 9 image...${NC}"
+    echo -e "${YELLOW}Finding latest Oracle Linux 9 image...${NC}" >&2
     
-    local image_id=$(oci compute image list \
-        --compartment-id "$COMPARTMENT_ID" \
-        --operating-system "Oracle Linux" \
-        --operating-system-version "9" \
-        --sort-by TIMECREATED \
-        --sort-order DESC \
-        --limit 1 \
-        --query 'data[0].id' \
-        --raw-output 2>/dev/null)
-    
-    if [ -z "$image_id" ] || [ "$image_id" = "null" ]; then
-        # Fallback to known Oracle Linux 9 image ID for us-ashburn-1
-        image_id="ocid1.image.oc1.iad.aaaaaaaa4l64brs5udx52nedrhlex4cpaorcd2jwvpoududksmw4lgmameqq"
-        echo -e "${YELLOW}  Using known Oracle Linux 9 image ID${NC}"
-    else
-        echo -e "${GREEN}  ✓ Found image: $(echo $image_id | cut -d'.' -f5 | cut -c1-20)...${NC}"
-    fi
+    # Use known good Oracle Linux 9 standard image for us-ashburn-1
+    # This is the image that worked successfully: Oracle-Linux-9.6-2025.09.16-0
+    local image_id="ocid1.image.oc1.iad.aaaaaaaa4l64brs5udx52nedrhlex4cpaorcd2jwvpoududksmw4lgmameqq"
+    echo -e "${GREEN}  ✓ Using Oracle Linux 9.6 standard image${NC}" >&2
     
     echo "$image_id"
 }
@@ -169,7 +156,7 @@ create_vm() {
 
 # Main execution flow
 main() {
-    echo -e "${YELLOW}Step 1: Getting Oracle Linux 8 image...${NC}"
+    echo -e "${YELLOW}Step 1: Getting Oracle Linux 9 image...${NC}"
     IMAGE_ID=$(get_oracle_linux_image)
     echo ""
     

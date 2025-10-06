@@ -12,7 +12,7 @@ export SUBNET_ID="ocid1.subnet.oc1.iad.aaaaaaaagpmvodqss4mbqpoq7vcmhkn7jysn52dy6
 export AVAILABILITY_DOMAIN="DeZH:US-ASHBURN-AD-1"
 
 # Test Instance - CLI-created VM (VM.Standard.E5.Flex)
-export TEST_INSTANCE_ID="ocid1.instance.oc1.iad.anuwcljtumfbntyclvqlwpfic7ul35nvub5z2mkmukivfkos6i5omv5jeslq"
+export TEST_INSTANCE_ID="ocid1.instance.oc1.iad.anuwcljtumfbntyc546cafdlm2j3okwny66vcfonzt7da5pvcdxsgzmcd4fa"
 
 # Restore Settings
 export RESTORE_SHAPE="VM.Standard.E2.1.Micro"
