@@ -153,7 +153,7 @@ export default function Dashboard() {
         </Grid>
 
         {/* Monthly Savings */}
-        <Grid item xs={12} sm={6} md=3>
+        <Grid item xs={12} sm={6} md={3}>
           <Card sx={{ background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)' }}>
             <CardContent>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
